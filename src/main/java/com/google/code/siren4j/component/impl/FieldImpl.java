@@ -68,6 +68,8 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
     
     private String placeholder;
 
+    private Boolean multiple;
+
     private Map<String, String> metaData;
 
     /*
@@ -159,6 +161,14 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
 
     public String getPlaceholder() {
         return placeholder;
+    }
+
+    public Boolean getMultiple() {
+        return multiple;
+    }
+
+    public void setMultiple(Boolean multiple) {
+        this.multiple = multiple;
     }
 
     public void setPlaceholder(String placeholder) {

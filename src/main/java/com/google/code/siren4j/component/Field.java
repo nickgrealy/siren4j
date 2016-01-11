@@ -121,6 +121,8 @@ public interface Field extends Component {
      */
     public String getPlaceholder();
 
+    public Boolean getMultiple();
+
     /**
      * Option values for the fields.
      * @return may be <code>null</code> or empty.

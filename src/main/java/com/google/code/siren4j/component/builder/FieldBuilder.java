@@ -145,6 +145,11 @@ public class FieldBuilder extends BaseBuilder<Field> {
         return this;
     }
 
+    public FieldBuilder setMultiple(Boolean multiple) {
+        addStep("setMultiple", new Object[] { multiple }, new Class<?>[] {Boolean.class});
+        return this;
+    }
+
     public FieldBuilder setMetaData(Map<String, String> metaData) {
         addStep("setMetaData", new Object[] {metaData}, new Class[] {Map.class});
         return this;

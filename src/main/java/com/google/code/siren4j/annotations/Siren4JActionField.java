@@ -93,7 +93,9 @@ public @interface Siren4JActionField {
     String step() default "any";
 
     String placeHolder() default "";
-	
+
+    boolean multiple() default false;
+
     Siren4JFieldOption[] options() default {};
 
     String optionsURL() default "";
