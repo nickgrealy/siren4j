@@ -84,13 +84,13 @@ public @interface Siren4JActionField {
 
     boolean required() default false;
 
-    int min() default -1;
+    double min() default Double.MIN_VALUE;
 
-    int max() default -1;
+    double max() default Double.MAX_VALUE;
 
-    int maxLength() default -1;
+    long maxLength() default Long.MAX_VALUE;
 
-    int step() default -1;
+    String step() default "any";
 
     String placeHolder() default "";
 	

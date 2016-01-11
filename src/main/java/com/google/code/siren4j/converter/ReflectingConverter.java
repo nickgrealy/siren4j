@@ -23,33 +23,10 @@
  *********************************************************************************************/
 package com.google.code.siren4j.converter;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.google.code.siren4j.Siren4J;
-import com.google.code.siren4j.annotations.Siren4JAction;
-import com.google.code.siren4j.annotations.Siren4JActionField;
-import com.google.code.siren4j.annotations.Siren4JCondition;
+import com.google.code.siren4j.annotations.*;
 import com.google.code.siren4j.annotations.Siren4JCondition.Type;
-import com.google.code.siren4j.annotations.Siren4JEntity;
-import com.google.code.siren4j.annotations.Siren4JFieldOption;
-import com.google.code.siren4j.annotations.Siren4JInclude;
 import com.google.code.siren4j.annotations.Siren4JInclude.Include;
-import com.google.code.siren4j.annotations.Siren4JLink;
-import com.google.code.siren4j.annotations.Siren4JMetaData;
-import com.google.code.siren4j.annotations.Siren4JOptionData;
-import com.google.code.siren4j.annotations.Siren4JProperty;
-import com.google.code.siren4j.annotations.Siren4JSubEntity;
 import com.google.code.siren4j.component.Action;
 import com.google.code.siren4j.component.Entity;
 import com.google.code.siren4j.component.Link;
@@ -68,6 +45,16 @@ import com.google.code.siren4j.resource.CollectionResource;
 import com.google.code.siren4j.resource.Resource;
 import com.google.code.siren4j.util.ComponentUtils;
 import com.google.code.siren4j.util.ReflectionUtils;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class ReflectingConverter implements ResourceConverter {
 
@@ -811,7 +798,7 @@ public class ReflectingConverter implements ResourceConverter {
         if (fieldAnno.maxLength() > -1) {
             builder.setMaxLength(fieldAnno.maxLength());
         }
-        if (fieldAnno.step() > -1) {
+        if (!"any".equals(fieldAnno.step())) {
             builder.setStep(fieldAnno.step());
         }
         if (fieldAnno.required()) {

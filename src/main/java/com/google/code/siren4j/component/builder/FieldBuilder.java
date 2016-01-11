@@ -23,14 +23,14 @@
  *********************************************************************************************/
 package com.google.code.siren4j.component.builder;
 
-import java.util.Map;
-import org.apache.commons.lang.StringUtils;
-
 import com.google.code.siren4j.component.Field;
 import com.google.code.siren4j.component.impl.FieldImpl;
 import com.google.code.siren4j.error.Siren4JBuilderValidationException;
 import com.google.code.siren4j.meta.FieldOption;
 import com.google.code.siren4j.meta.FieldType;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.Map;
 
 public class FieldBuilder extends BaseBuilder<Field> {
 
@@ -115,28 +115,28 @@ public class FieldBuilder extends BaseBuilder<Field> {
         return this;
     }
 
-    public FieldBuilder setRequired(boolean required) {
-        addStep("setRequired", new Object[] { required }, new Class[] { boolean.class });
+    public FieldBuilder setRequired(Boolean required) {
+        addStep("setRequired", new Object[] { required }, new Class[] { Boolean.class });
         return this;
     }
 
-    public FieldBuilder setMax(int max) {
-        addStep("setMax", new Object[] { max }, new Class[] { int.class });
+    public FieldBuilder setMax(Double max) {
+        addStep("setMax", new Object[] { max }, new Class[] { Double.class });
         return this;
     }
 
-    public FieldBuilder setMin(int min) {
-        addStep("setMin", new Object[] { min }, new Class[] { int.class });
+    public FieldBuilder setMin(Double min) {
+        addStep("setMin", new Object[] { min }, new Class[] { Double.class });
         return this;
     }
 
-    public FieldBuilder setMaxLength(int maxLength) {
-        addStep("setMaxLength", new Object[] { maxLength }, new Class[] { int.class });
+    public FieldBuilder setMaxLength(Long maxLength) {
+        addStep("setMaxLength", new Object[] { maxLength }, new Class[] { Long.class });
         return this;
     }
 
-    public FieldBuilder setStep(Integer step) {
-        addStep("setStep", new Object[] { step }, new Class[] { Integer.class });
+    public FieldBuilder setStep(String step) {
+        addStep("setStep", new Object[] { step }, new Class[] { String.class });
         return this;
     }
     

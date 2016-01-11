@@ -71,38 +71,42 @@ public interface Field extends Component {
      * Indicates if the field is required upon action submission.
      * @return <code>true</code> if required.
      */
-    public boolean isRequired();
+    public Boolean isRequired();
     
     /**
      * Specifies the minimum value for the following field types:
      * number, range, date, datetime, datetime-local, month, time and week.
      * @return -1 is considered as a not set state.
      */
-    public int getMin();
+    public Double getMin();
      
     /**
      * Specifies the maximum value for the following field types:
      * number, range, date, datetime, datetime-local, month, time and week.
      * @return -1 is considered as a not set state.
      */
-    public int getMax();
+    public Double getMax();
     
     /**
      * The maxlength attribute limits the number of characters that text field can accept.
      * @return -1 is considered as a not set state and means no limit on length.
      */
-    public int getMaxLength();
+    public Long getMaxLength();
     
     /**
-     * The step attribute specifies the legal number intervals for an <input> element.
+     * The step attribute specifies the legal number intervals for an <code>&lt;input&gt;</code> element. If specified, must
+     * either have a value that is a valid floating-point number that parses to a number that is greater than zero, or
+     * must have a value that is an ASCII case-insensitive match for the string "any".
      *
-     * Example: if step="3", legal numbers could be -3, 0, 3, 6, etc.
+     * Example: legal values could be 0, 3, 1.234, 'any', etc.
      * 
      * Used for the following field types:
      * number, range, date, datetime, datetime-local, month, time and week.
      * @return may be <code>null</code> if not set.
+     *
+     * @see <a href="http://www.w3.org/TR/2012/CR-html5-20121217/forms.html#the-step-attribute">http://www.w3.org/TR/2012/CR-html5-20121217/forms.html#the-step-attribute</a>
      */
-    public Integer getStep();
+    public String getStep();
     
     /**
      * The placeholder attribute specifies a short hint that describes the expected value

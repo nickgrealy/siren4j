@@ -24,16 +24,17 @@
 package com.google.code.siren4j.component.impl;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.google.code.siren4j.component.Field;
 import com.google.code.siren4j.meta.FieldOption;
 import com.google.code.siren4j.meta.FieldType;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @JsonInclude(Include.NON_NULL)
 public class FieldImpl extends Siren4JBaseComponent implements Field {
@@ -46,7 +47,7 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
 
     private String value;
 
-    private boolean required;
+    private Boolean required;
 
     private String pattern;
 
@@ -55,15 +56,15 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
     private String optionsURL;
 
     @JsonInclude(Include.NON_DEFAULT)
-    private int max = -1;
+    private Double max = null;
 
     @JsonInclude(Include.NON_DEFAULT)
-    private int min = -1;
+    private Double min = null;
 
     @JsonInclude(Include.NON_DEFAULT)
-    private int maxLength = -1;
+    private Long maxLength = null;
 
-    private Integer step;
+    private String step;
     
     private String placeholder;
 
@@ -108,11 +109,11 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
         this.value = value;
     }
 
-    public boolean isRequired() {
+    public Boolean isRequired() {
         return required;
     }
 
-    public void setRequired(boolean required) {
+    public void setRequired(Boolean required) {
         this.required = required;
     }
 
@@ -124,38 +125,38 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
         this.pattern = pattern;
     }
 
-    public int getMax() {
+    public Double getMax() {
         return max;
     }
 
-    public void setMax(int max) {
+    public void setMax(Double max) {
         this.max = max;
     }
 
-    public int getMin() {
+    public Double getMin() {
         return min;
     }
 
-    public void setMin(int min) {
+    public void setMin(Double min) {
         this.min = min;
     }
 
-    public int getMaxLength() {
+    public Long getMaxLength() {
         return maxLength;
     }
 
-    public void setMaxLength(int maxLength) {
+    public void setMaxLength(Long maxLength) {
         this.maxLength = maxLength;
     }
 
-    public Integer getStep() {
+    public String getStep() {
         return step;
     }
 
-    public void setStep(Integer step) {
+    public void setStep(String step) {
         this.step = step;
     }
-    
+
     public String getPlaceholder() {
         return placeholder;
     }
