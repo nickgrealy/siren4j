@@ -1,20 +1,21 @@
 package com.google.code.siren4j.converter;
 
+import com.google.code.siren4j.annotations.Siren4JEntity;
+import com.google.code.siren4j.error.Siren4JException;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.reflections.Reflections;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.StringUtils;
-import org.reflections.Reflections;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.google.code.siren4j.annotations.Siren4JEntity;
-import com.google.code.siren4j.error.Siren4JException;
 
 /**
  * The resource registry keeps a list of all Siren4J Resources as defined by their
@@ -38,7 +39,7 @@ public class ResourceRegistryImpl implements ResourceRegistry {
      * Retrieve a new resource registry instance.
      *
      * @param packages array of package pattern strings that will be searched
-     * for resources.
+     *                 for resources.
      * @return the instance, never <code>null</code>.
      * @throws Siren4JException
      */

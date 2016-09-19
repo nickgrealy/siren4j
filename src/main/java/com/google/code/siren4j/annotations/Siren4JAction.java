@@ -1,16 +1,16 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- * 
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
  * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
  * persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
  * Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
  * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
@@ -18,18 +18,19 @@
  *********************************************************************************************/
 package com.google.code.siren4j.annotations;
 
+import com.google.code.siren4j.component.impl.ActionImpl.Method;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.google.code.siren4j.component.impl.ActionImpl.Method;
 /**
  * Annotation that defines an action to be added to the entity.
- * 
+ *
  * <pre>
  * <code>
- * 
+ *
  *      &#064;Siren4JAction(
  *         name = "addReview",
  *         title = "Add a Review",
@@ -42,7 +43,7 @@ import com.google.code.siren4j.component.impl.ActionImpl.Method;
  *         }
  *         condition = &#064;Siren4JCondition(name = "somefield", logic=Is.TRUE) 
  *      )
- *      
+ *
  *      <table border="1">
  *       <thead>
  *          <tr><th>Property</th><th>Required</th><th>Description</th></tr>
@@ -57,14 +58,14 @@ import com.google.code.siren4j.component.impl.ActionImpl.Method;
  *          <tr><td>condition</td><td>no</td><td>A condition must evaluate to <code>true</code> for the action to be rendered.</td></tr>
  *       </tbody>
  *     </table>
- *      
+ *
  *      This annotation is used within a {@link Siren4JEntity} or {@link Siren4JSubEntity}. *         
- *  
+ *
  * </code>
  * </pre>
  *
  */
-@Target({ ElementType.ANNOTATION_TYPE })
+@Target({ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @com.google.code.siren4j.annotations.Siren4JAnnotation
 public @interface Siren4JAction {
@@ -81,6 +82,6 @@ public @interface Siren4JAction {
     String type() default "";
 
     Siren4JActionField[] fields() default {};
-    
-    Siren4JCondition condition() default @Siren4JCondition(name="null");
+
+    Siren4JCondition condition() default @Siren4JCondition(name = "null");
 }

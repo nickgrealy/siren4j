@@ -1,18 +1,18 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- * 
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,14 +23,13 @@
  *********************************************************************************************/
 package com.google.code.siren4j.util;
 
-import java.util.List;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-
 import com.google.code.siren4j.component.Action;
 import com.google.code.siren4j.component.Entity;
 import com.google.code.siren4j.component.Link;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
  * Various utility and helper methods to work with Siren4J components.
@@ -38,9 +37,9 @@ import com.google.code.siren4j.component.Link;
 public class ComponentUtils {
 
     private ComponentUtils() {
-        
+
     }
-    
+
     /**
      * Retrieve a sub entity by its relationship.
      * @param entity cannot be <code>null</code>.
@@ -48,10 +47,10 @@ public class ComponentUtils {
      * @return the located entity or <code>null</code> if not found.
      */
     public static Entity getSubEntityByRel(Entity entity, String... rel) {
-        if(entity == null) {
+        if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null.");
         }
-        if(ArrayUtils.isEmpty(rel)) {
+        if (ArrayUtils.isEmpty(rel)) {
             throw new IllegalArgumentException("rel cannot be null or empty");
         }
         List<Entity> entities = entity.getEntities();
@@ -66,7 +65,7 @@ public class ComponentUtils {
         }
         return ent;
     }
-    
+
     /**
      * Retrieve a link by its relationship.
      * @param entity cannot be <code>null</code>.
@@ -74,10 +73,10 @@ public class ComponentUtils {
      * @return the located link or <code>null</code> if not found.
      */
     public static Link getLinkByRel(Entity entity, String... rel) {
-        if(entity == null) {
+        if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null.");
         }
-        if(ArrayUtils.isEmpty(rel)) {
+        if (ArrayUtils.isEmpty(rel)) {
             throw new IllegalArgumentException("rel cannot be null or empty");
         }
         List<Link> links = entity.getLinks();
@@ -92,7 +91,7 @@ public class ComponentUtils {
         }
         return link;
     }
-    
+
     /**
      * Retrieve an action by its name.
      * @param entity cannot be <code>null</code>.
@@ -100,10 +99,10 @@ public class ComponentUtils {
      * @return the located action or <code>null</code> if not found.
      */
     public static Action getActionByName(Entity entity, String name) {
-        if(entity == null) {
+        if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null.");
         }
-        if(StringUtils.isBlank(name)) {
+        if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("name cannot be null or empty.");
         }
         List<Action> actions = entity.getActions();
@@ -121,7 +120,7 @@ public class ComponentUtils {
 
     /**
      * Determine if the string array is empty. It is considered empty if zero length or all items are blank strings;
-     * 
+     *
      * @param arr
      * @return
      */
@@ -139,19 +138,19 @@ public class ComponentUtils {
         }
         return empty;
     }
-    
+
     public static boolean isNumeric(Object obj) {
         Class<?> clazz = obj.getClass();
         boolean numeric = false;
-        if(clazz.isPrimitive()) {
-            numeric = 
-                clazz.equals(byte.class) ||
-                clazz.equals(short.class) ||
-                clazz.equals(int.class) ||
-                clazz.equals(long.class) ||
-                clazz.equals(float.class) ||
-                clazz.equals(double.class);
-                
+        if (clazz.isPrimitive()) {
+            numeric =
+                    clazz.equals(byte.class) ||
+                            clazz.equals(short.class) ||
+                            clazz.equals(int.class) ||
+                            clazz.equals(long.class) ||
+                            clazz.equals(float.class) ||
+                            clazz.equals(double.class);
+
         } else {
             numeric = obj instanceof Number;
         }

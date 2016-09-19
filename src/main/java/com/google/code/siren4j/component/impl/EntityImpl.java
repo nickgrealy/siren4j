@@ -1,18 +1,18 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- * 
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,27 +23,26 @@
  *********************************************************************************************/
 package com.google.code.siren4j.component.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.google.code.siren4j.component.Action;
 import com.google.code.siren4j.component.Entity;
 import com.google.code.siren4j.component.Link;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.List;
+import java.util.Map;
 
 @JsonInclude(Include.NON_NULL)
-@JsonPropertyOrder({ "class", "rel", "href", "title", "properties", "entities", "actions", "links" })
+@JsonPropertyOrder({"class", "rel", "href", "title", "properties", "entities", "actions", "links"})
 public class EntityImpl extends Siren4JBaseComponent implements Entity {
 
     private String[] rel;
 
     private String href;
-    
+
     private String title;
 
     private Map<String, Object> properties;
@@ -120,7 +119,7 @@ public class EntityImpl extends Siren4JBaseComponent implements Entity {
     public void setRel(String... rel) {
         this.rel = rel;
     }
-    
+
 
     public String getHref() {
         return href;
@@ -128,9 +127,9 @@ public class EntityImpl extends Siren4JBaseComponent implements Entity {
 
     public void setHref(String href) {
         this.href = href;
-    }   
-    
-    
+    }
+
+
     public String getTitle() {
         return title;
     }
@@ -151,11 +150,11 @@ public class EntityImpl extends Siren4JBaseComponent implements Entity {
     public int hashCode() {
         HashCodeBuilder hashCodeBuilder = new HashCodeBuilder();
         hashCodeBuilder.append(rel)
-            .append(componentClass)
-            .append(href);
+                .append(componentClass)
+                .append(href);
         return hashCodeBuilder.toHashCode();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -170,8 +169,8 @@ public class EntityImpl extends Siren4JBaseComponent implements Entity {
         EntityImpl other = (EntityImpl) obj;
         EqualsBuilder equalsBuilder = new EqualsBuilder();
         equalsBuilder.append(rel, other.rel)
-            .append(componentClass, other.componentClass)
-            .append(href, href);
+                .append(componentClass, other.componentClass)
+                .append(href, href);
         return equalsBuilder.isEquals();
     }
 

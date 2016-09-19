@@ -1,18 +1,18 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,9 +24,19 @@
 package com.google.code.siren4j.converter;
 
 import com.google.code.siren4j.Siren4J;
-import com.google.code.siren4j.annotations.*;
+import com.google.code.siren4j.annotations.Siren4JAction;
+import com.google.code.siren4j.annotations.Siren4JActionField;
+import com.google.code.siren4j.annotations.Siren4JCondition;
 import com.google.code.siren4j.annotations.Siren4JCondition.Type;
+import com.google.code.siren4j.annotations.Siren4JEntity;
+import com.google.code.siren4j.annotations.Siren4JFieldOption;
+import com.google.code.siren4j.annotations.Siren4JInclude;
 import com.google.code.siren4j.annotations.Siren4JInclude.Include;
+import com.google.code.siren4j.annotations.Siren4JLink;
+import com.google.code.siren4j.annotations.Siren4JMetaData;
+import com.google.code.siren4j.annotations.Siren4JOptionData;
+import com.google.code.siren4j.annotations.Siren4JProperty;
+import com.google.code.siren4j.annotations.Siren4JSubEntity;
 import com.google.code.siren4j.component.Action;
 import com.google.code.siren4j.component.Entity;
 import com.google.code.siren4j.component.Link;
@@ -47,14 +57,18 @@ import com.google.code.siren4j.util.ComponentUtils;
 import com.google.code.siren4j.util.ReflectionUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ReflectingConverter implements ResourceConverter {
 
@@ -116,6 +130,7 @@ public class ReflectingConverter implements ResourceConverter {
     /**
      * When set to <code>true</code> an exception will be thrown for missing target properties when
      * converting from entity to object.
+     *
      * @param errorOnMissingProperty
      */
     public void setErrorOnMissingProperty(boolean errorOnMissingProperty) {
@@ -129,6 +144,7 @@ public class ReflectingConverter implements ResourceConverter {
     /**
      * If set to <code>true</code> will suppress base uri links if resource has fully qualified links set. Default
      * is <code>false</code>.
+     *
      * @param suppressBaseUriOnFullyQualified
      */
     public void setSuppressBaseUriOnFullyQualified(boolean suppressBaseUriOnFullyQualified) {
@@ -202,9 +218,9 @@ public class ReflectingConverter implements ResourceConverter {
     /**
      * Sets field value for an entity's property field.
      *
-     * @param obj assumed not <code>null</code>.
-     * @param clazz assumed not <code>null</code>.
-     * @param entity assumed not <code>null</code>.
+     * @param obj       assumed not <code>null</code>.
+     * @param clazz     assumed not <code>null</code>.
+     * @param entity    assumed not <code>null</code>.
      * @param fieldInfo assumed not <code>null</code>.
      * @throws Siren4JConversionException
      */
@@ -238,9 +254,9 @@ public class ReflectingConverter implements ResourceConverter {
     /**
      * Sets field value for an entity's sub entities field.
      *
-     * @param obj assumed not <code>null</code>.
-     * @param clazz assumed not <code>null</code>.
-     * @param entity assumed not <code>null</code>.
+     * @param obj       assumed not <code>null</code>.
+     * @param clazz     assumed not <code>null</code>.
+     * @param entity    assumed not <code>null</code>.
      * @param fieldInfo assumed not <code>null</code>.
      * @throws Siren4JConversionException
      */
@@ -301,11 +317,11 @@ public class ReflectingConverter implements ResourceConverter {
     /**
      * The recursive method that actually does the work of converting from a resource to an entity.
      *
-     * @param obj the object to be converted, this could be a <code>Resource</code> or another <code>Object</code>. Only
-     * <code>Resource</code> objects are allowed in via public methods, other object types may come from recursing into the
-     * original resource. May be <code>null</code>.
-     * @param parentField the parent field, ie the field that contained this object, may be <code>null</code>.
-     * @param parentObj the object that contains the field that contains this object, may be <code>null</code>.
+     * @param obj             the object to be converted, this could be a <code>Resource</code> or another <code>Object</code>. Only
+     *                        <code>Resource</code> objects are allowed in via public methods, other object types may come from recursing into the
+     *                        original resource. May be <code>null</code>.
+     * @param parentField     the parent field, ie the field that contained this object, may be <code>null</code>.
+     * @param parentObj       the object that contains the field that contains this object, may be <code>null</code>.
      * @param parentFieldInfo field info for all exposed parent object fields, may be <code>null</code>.
      * @return the entity created from the resource. May be <code>null</code>.
      * @throws Exception
@@ -405,10 +421,10 @@ public class ReflectingConverter implements ResourceConverter {
                 builder.addProperty("size", ((Collection<?>) obj).size());
             }
             if (obj instanceof Resource) {
-                Resource res  = (Resource)obj;
+                Resource res = (Resource) obj;
                 boolean skipBaseUri = isSuppressBaseUriOnFullyQualified() && (res.isFullyQualifiedLinks()
                         && res.getBaseUri() != null);
-                if(!skipBaseUri) {
+                if (!skipBaseUri) {
                     handleBaseUriLink(builder, res.getBaseUri());
                 }
             }
@@ -448,8 +464,8 @@ public class ReflectingConverter implements ResourceConverter {
     /**
      * Handles sub entities.
      *
-     * @param builder assumed not <code>null</code>.
-     * @param obj assumed not <code>null</code>.
+     * @param builder      assumed not <code>null</code>.
+     * @param obj          assumed not <code>null</code>.
      * @param currentField assumed not <code>null</code>.
      * @throws Siren4JException
      */
@@ -478,7 +494,7 @@ public class ReflectingConverter implements ResourceConverter {
     /**
      * Resolves the raw uri by replacing field tokens with the actual data.
      *
-     * @param rawUri assumed not <code>null</code> or .
+     * @param rawUri  assumed not <code>null</code> or .
      * @param context
      * @return uri with tokens resolved.
      * @throws Siren4JException
@@ -532,7 +548,7 @@ public class ReflectingConverter implements ResourceConverter {
      * If an annotation exists on both, then the field wins.
      *
      * @param currentField assumed not <code>null</code>.
-     * @param fieldInfo assumed not <code>null</code>.
+     * @param fieldInfo    assumed not <code>null</code>.
      * @return the annotation if found else <code>null</code>.
      */
     private Siren4JSubEntity getSubEntityAnnotation(Field currentField, List<ReflectedInfo> fieldInfo) {
@@ -550,7 +566,7 @@ public class ReflectingConverter implements ResourceConverter {
     /**
      * Add the self link to the entity.
      *
-     * @param builder assumed not <code>null</code>.
+     * @param builder     assumed not <code>null</code>.
      * @param resolvedUri the token resolved uri. Assumed not blank.
      */
     private void handleSelfLink(EntityBuilder builder, String resolvedUri) {
@@ -786,7 +802,7 @@ public class ReflectingConverter implements ResourceConverter {
         if (ArrayUtils.isNotEmpty(fieldAnno.fieldClass())) {
             builder.setComponentClass(fieldAnno.fieldClass());
         }
-        if(StringUtils.isNotBlank(fieldAnno.title())) {
+        if (StringUtils.isNotBlank(fieldAnno.title())) {
             builder.setTitle(fieldAnno.title());
         }
         if (fieldAnno.max() > -1) {
@@ -837,9 +853,9 @@ public class ReflectingConverter implements ResourceConverter {
         if (StringUtils.isNotBlank(fieldAnno.placeHolder())) {
             builder.setPlaceholder(fieldAnno.placeHolder());
         }
-        if(ArrayUtils.isNotEmpty(fieldAnno.metaData())) {
+        if (ArrayUtils.isNotEmpty(fieldAnno.metaData())) {
             Map<String, String> metaData = new HashMap();
-            for(Siren4JMetaData mdAnno : fieldAnno.metaData()) {
+            for (Siren4JMetaData mdAnno : fieldAnno.metaData()) {
                 metaData.put(mdAnno.key(), mdAnno.value());
             }
             builder.setMetaData(metaData);
@@ -851,7 +867,7 @@ public class ReflectingConverter implements ResourceConverter {
      * Determine if the property or entity should be skipped based on any existing include policy. The TYPE annotation is
      * checked first and then the field annotation, the field annotation takes precedence.
      *
-     * @param obj assumed not <code>null</code>.
+     * @param obj   assumed not <code>null</code>.
      * @param field assumed not <code>null</code>.
      * @return <code>true</code> if the property/enity should be skipped.
      * @throws Siren4JException

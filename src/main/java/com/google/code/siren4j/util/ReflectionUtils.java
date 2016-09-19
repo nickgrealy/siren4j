@@ -1,22 +1,33 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- *
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- *
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
  * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
  * persons to whom the Software is furnished to do so, subject to the following conditions:
- *
+ * <p>
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
  * Software.
- *
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
  * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *********************************************************************************************/
 package com.google.code.siren4j.util;
+
+import com.google.code.siren4j.annotations.Siren4JProperty;
+import com.google.code.siren4j.annotations.Siren4JPropertyIgnore;
+import com.google.code.siren4j.annotations.Siren4JSubEntity;
+import com.google.code.siren4j.converter.ReflectedInfo;
+import com.google.code.siren4j.error.Siren4JException;
+import com.google.code.siren4j.error.Siren4JRuntimeException;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Field;
@@ -36,17 +47,6 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
-
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-import com.google.code.siren4j.annotations.Siren4JProperty;
-import com.google.code.siren4j.annotations.Siren4JPropertyIgnore;
-import com.google.code.siren4j.annotations.Siren4JSubEntity;
-import com.google.code.siren4j.converter.ReflectedInfo;
-import com.google.code.siren4j.error.Siren4JException;
-import com.google.code.siren4j.error.Siren4JRuntimeException;
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
 
 public class ReflectionUtils {
 
@@ -175,7 +175,7 @@ public class ReflectionUtils {
         Method setter = null;
         for (Method m : clazz.getMethods()) {
             if (ReflectionUtils.isSetter(m) && m.getName()
-                                                .equals(SETTER_PREFIX + StringUtils.capitalize(f.getName()))) {
+                    .equals(SETTER_PREFIX + StringUtils.capitalize(f.getName()))) {
                 setter = m;
                 break;
             }
@@ -239,10 +239,16 @@ public class ReflectionUtils {
                     String fieldname = key.startsWith("parent.") ? key.substring(7) : key;
                     if (index.containsKey(fieldname)) {
                         Field f = index.get(fieldname);
-                        if (ArrayUtils.contains(propertyTypes, f.getType())) {
+                        if (f.getType().isEnum() || ArrayUtils.contains(propertyTypes, f.getType())) {
+                            String replacement = "";
                             Object theObject = f.get(obj);
-                            str = str.replaceAll("\\{" + key + "\\}", 
-                                Matcher.quoteReplacement("" + (theObject == null ? "" : theObject.toString())));
+                            if (f.getType().isEnum()) {
+                                replacement = theObject == null ? "" : ((Enum) theObject).name();
+                            } else {
+                                replacement = theObject == null ? "" : theObject.toString();
+                            }
+                            str = str.replaceAll("\\{" + key + "\\}",
+                                    Matcher.quoteReplacement("" + replacement));
                         }
                     }
                 }
@@ -513,9 +519,7 @@ public class ReflectionUtils {
             isProp = true;
         } else if (ArrayUtils.contains(propertyTypes, type)) {
             isProp = true;
-        } else if (obj != null && (Collection.class.equals(type)
-                || ArrayUtils.contains(type.getInterfaces(),
-                Collection.class))) {
+        } else if (obj != null && Collection.class.isAssignableFrom(type)) {
             //Try to determine value type
             if (!((Collection) obj).isEmpty()) {
                 Object first = findFirstNonNull(((Collection) obj).iterator());
@@ -523,15 +527,13 @@ public class ReflectionUtils {
                     isProp = true;
                 }
             }
-        } else if (obj != null && (Map.class.equals(type)
-                || ArrayUtils.contains(type.getInterfaces(),
-                Map.class))) {
+        } else if (obj != null && Map.class.isAssignableFrom(type)) {
             //Try to determine value types of key and value
             if (!((Map) obj).isEmpty()) {
                 Object firstKey = findFirstNonNull(((Map) obj).keySet().iterator());
                 Object firstVal = findFirstNonNull(((Map) obj).entrySet().iterator());
                 if ((firstKey == null || ArrayUtils.contains(propertyTypes, firstKey.getClass()))
-                        && (firstVal == null || ArrayUtils.contains(propertyTypes, firstVal.getClass()))) {
+                        && (firstVal == null || ArrayUtils.contains(propertyTypes, ((HashMap.Entry) firstVal).getValue().getClass()))) {
                     isProp = true;
                 }
             }
@@ -548,9 +550,9 @@ public class ReflectionUtils {
     @SuppressWarnings("rawtypes")
     private static Object findFirstNonNull(Iterator it) {
         Object result = null;
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             result = it.next();
-            if(result != null) {
+            if (result != null) {
                 break;
             }
         }

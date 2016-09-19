@@ -1,18 +1,18 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- * 
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,8 +29,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.google.code.siren4j.component.Field;
 import com.google.code.siren4j.meta.FieldOption;
 import com.google.code.siren4j.meta.FieldType;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ import java.util.Map;
 public class FieldImpl extends Siren4JBaseComponent implements Field {
 
     private String name;
-    
+
     private String title;
 
     private FieldType type = FieldType.TEXT;
@@ -65,7 +65,7 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
     private Long maxLength = null;
 
     private String step;
-    
+
     private String placeholder;
 
     private Boolean multiple;
@@ -173,7 +173,7 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
 
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
-    }    
+    }
 
     public String getTitle() {
         return title;
@@ -192,8 +192,8 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
     }
 
     public void addOption(FieldOption option) {
-        if(option != null) {
-            if(options == null) {
+        if (option != null) {
+            if (options == null) {
                 options = new ArrayList<FieldOption>();
             }
             options.add(option);
@@ -222,7 +222,7 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
         hashCodeBuilder.append(name);
         return hashCodeBuilder.toHashCode();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -239,6 +239,6 @@ public class FieldImpl extends Siren4JBaseComponent implements Field {
         equalsBuilder.append(name, other.name);
         return equalsBuilder.isEquals();
     }
-    
+
 
 }

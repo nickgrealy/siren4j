@@ -1,18 +1,18 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- * 
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,16 +23,6 @@
  *********************************************************************************************/
 package com.google.code.siren4j.component.builder;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
-
 import com.google.code.siren4j.component.Action;
 import com.google.code.siren4j.component.Entity;
 import com.google.code.siren4j.component.Link;
@@ -41,14 +31,23 @@ import com.google.code.siren4j.component.impl.EmbeddedEntityImpl;
 import com.google.code.siren4j.component.impl.EntityImpl;
 import com.google.code.siren4j.component.impl.LinkImpl;
 import com.google.code.siren4j.error.Siren4JBuilderValidationException;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The EntityBuilder allows the construction of an Entity object via a fluent
  * builder API.
- * 
+ *
  * <pre>
  * <b>Example Usage:</b>
- * 
+ *
  * EntityBuilder builder = EntityBuilder.newInstance();
  * Entity result = builder
  *    .setEntityClass("test")
@@ -57,9 +56,9 @@ import com.google.code.siren4j.error.Siren4JBuilderValidationException;
  *    .addLinks(getLinks())
  *    .addActions(getActions())
  *    .build();    
- *    
+ *
  * </pre>
- * 
+ *
  */
 public class EntityBuilder extends BaseBuilder<Entity> {
 
@@ -70,12 +69,12 @@ public class EntityBuilder extends BaseBuilder<Entity> {
     private List<Action> actions = new ArrayList<Action>();
 
     private Map<String, Object> properties = new LinkedHashMap<String, Object>();
-    
+
     private boolean isEmbedded;
 
     private EntityBuilder() {
     }
-    
+
     /**
      * Creates a new instance of the <code>EntityBuilder</code>.
      * @return new instance of the builder, never <code>null</code>.
@@ -102,10 +101,10 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder setComponentClass(String... componentClass) {
-        addStep("setComponentClass", new Object[] { componentClass }, new Class<?>[] {String[].class});
+        addStep("setComponentClass", new Object[]{componentClass}, new Class<?>[]{String[].class});
         return this;
     }
-    
+
     /**
      * Sets the relationship of the entity to be built. Generally only used for sub entities. This method can be called many times
      * but only the value of the last call is used in the built entity. This is an optional property as specified
@@ -114,10 +113,10 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder setRelationship(String... rel) {
-    	addStep("setRel", new Object[] { rel }, new Class<?>[] {String[].class});
+        addStep("setRel", new Object[]{rel}, new Class<?>[]{String[].class});
         return this;
     }
-    
+
     /**
      * Sets the title of the entity to be built. This method can be called many times
      * but only the value of the last call is used in the built entity. This is an optional property as specified
@@ -126,15 +125,15 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder setTitle(String title) {
-        addStep("setTitle", new Object[] { title }, new Class<?>[] {String.class});
+        addStep("setTitle", new Object[]{title}, new Class<?>[]{String.class});
         return this;
     }
 
     public EntityBuilder setType(String type) {
-        addStep("setType", new Object[] { type }, new Class<?>[] {String.class});
+        addStep("setType", new Object[]{type}, new Class<?>[]{String.class});
         return this;
     }
-    
+
     /**
      * Set the href of the entity to be built. This method can be called many times
      * but only the value of the last call is used in the built entity. This is a required property if this entity is an embedded link, as specified
@@ -143,14 +142,14 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder setHref(String href) {
-    	if(StringUtils.isBlank(href)) {
-    		throw new IllegalArgumentException("href cannot be null or empty.");
-    	}
-        addStep("setHref", new Object[] { href });
+        if (StringUtils.isBlank(href)) {
+            throw new IllegalArgumentException("href cannot be null or empty.");
+        }
+        addStep("setHref", new Object[]{href});
         isEmbedded = true;
         return this;
     }
-    
+
     /**
      * Adds a single property to the entity to be built. 
      * Properties are optional according to the Siren specification.
@@ -159,13 +158,13 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder addProperty(String name, Object value) {
-    	if(StringUtils.isBlank(name)) {
-    		throw new IllegalArgumentException("name cannot be null or empty.");
-    	}
-        addStep("_addProperty", new Object[] { name, value }, new Class<?>[]{String.class, Object.class}, true);
+        if (StringUtils.isBlank(name)) {
+            throw new IllegalArgumentException("name cannot be null or empty.");
+        }
+        addStep("_addProperty", new Object[]{name, value}, new Class<?>[]{String.class, Object.class}, true);
         return this;
     }
-    
+
     /**
      * Adds a map of properties to the entity to be built. 
      * Properties are optional according to the Siren specification.
@@ -173,15 +172,15 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder addProperties(Map<String, Object> properties) {
-    	if(MapUtils.isEmpty(properties)) {
-    		throw new IllegalArgumentException("properties cannot be null or empty.");
-    	}
+        if (MapUtils.isEmpty(properties)) {
+            throw new IllegalArgumentException("properties cannot be null or empty.");
+        }
         for (String key : properties.keySet()) {
             addProperty(key, properties.get(key));
         }
         return this;
     }
-    
+
     /**
      * Add a sub entity to the entity to be built. 
      * Sub entities are optional according to the Siren specification.
@@ -189,13 +188,13 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder addSubEntity(Entity subEntity) {
-    	if(subEntity == null) {
-    		throw new IllegalArgumentException("subEntity cannot be null.");
-    	}
-        addStep("_addEntity", new Object[] { subEntity }, true);
+        if (subEntity == null) {
+            throw new IllegalArgumentException("subEntity cannot be null.");
+        }
+        addStep("_addEntity", new Object[]{subEntity}, true);
         return this;
     }
-    
+
     /**
      * Add a list of sub entities to the entity to be built. 
      * Sub entities are optional according to the Siren specification.
@@ -203,15 +202,15 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder addSubEntities(List<Entity> entities) {
-    	if(entities == null) {
-    		throw new IllegalArgumentException("entities cannot be null.");
-    	}
-    	for (Entity entity : entities) {
+        if (entities == null) {
+            throw new IllegalArgumentException("entities cannot be null.");
+        }
+        for (Entity entity : entities) {
             addSubEntity(entity);
         }
         return this;
     }
-    
+
     /**
      * Add a link to the entity to be built. Links are optional according to the Siren specification, however
      * an entity should always have a 'self' link to be considered HATEAOS compliant.
@@ -219,10 +218,10 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder addLink(Link link) {
-    	if(link == null) {
-    		throw new IllegalArgumentException("link cannot be null.");
-    	}
-    	addStep("_addLink", new Object[] { link }, true);
+        if (link == null) {
+            throw new IllegalArgumentException("link cannot be null.");
+        }
+        addStep("_addLink", new Object[]{link}, true);
         return this;
     }
 
@@ -233,43 +232,43 @@ public class EntityBuilder extends BaseBuilder<Entity> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder addLinks(List<Link> links) {
-    	if(links == null) {
-    		throw new IllegalArgumentException("links cannot be null.");
-    	}
+        if (links == null) {
+            throw new IllegalArgumentException("links cannot be null.");
+        }
         for (Link link : links) {
             addLink(link);
         }
         return this;
     }
-    
+
     /**
      * Add an action to the entity to be built. Actions are options according to the Siren specification.
      * @param action cannot be <code>null</code>.
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder addAction(Action action) {
-    	if(action == null) {
-    		throw new IllegalArgumentException("action cannot be null.");
-    	}
-    	addStep("_addAction", new Object[] { action }, true);
+        if (action == null) {
+            throw new IllegalArgumentException("action cannot be null.");
+        }
+        addStep("_addAction", new Object[]{action}, true);
         return this;
     }
-    
+
     /**
      * Add a list of actions to the entity to be built. Actions are options according to the Siren specification.
      * @param actions cannot be <code>null</code>, may be empty.
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public EntityBuilder addActions(List<Action> actions) {
-    	if(actions == null) {
-    		throw new IllegalArgumentException("actions cannot be null.");
-    	}
+        if (actions == null) {
+            throw new IllegalArgumentException("actions cannot be null.");
+        }
         for (Action action : actions) {
             addAction(action);
         }
         return this;
     }
-    
+
     void _addEntity(EmbeddedEntityImpl entity) {
         subEntities.add(entity);
     }
@@ -289,7 +288,7 @@ public class EntityBuilder extends BaseBuilder<Entity> {
     void _addProperty(String name, Object value) {
         properties.put(name, value);
     }
-    
+
 
     @Override
     protected void postProcess(Entity obj) {
@@ -315,7 +314,7 @@ public class EntityBuilder extends BaseBuilder<Entity> {
     protected void validate(Entity obj) {
         validateSubEntities(obj);
     }
-    
+
     /**
      * Validate sub entities ensuring the existence of a relationship and if an embedded link then ensure the
      * existence of an href.
@@ -339,7 +338,7 @@ public class EntityBuilder extends BaseBuilder<Entity> {
 
     @Override
     protected Entity createInstance() {
-        if(isEmbedded) {
+        if (isEmbedded) {
             return new EmbeddedEntityImpl();
         }
         return new EntityImpl();

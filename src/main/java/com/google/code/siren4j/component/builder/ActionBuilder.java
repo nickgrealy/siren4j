@@ -1,18 +1,18 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- * 
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,18 +23,17 @@
  *********************************************************************************************/
 package com.google.code.siren4j.component.builder;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-
 import com.google.code.siren4j.component.Action;
 import com.google.code.siren4j.component.Field;
 import com.google.code.siren4j.component.impl.ActionImpl;
 import com.google.code.siren4j.component.impl.ActionImpl.Method;
 import com.google.code.siren4j.component.impl.FieldImpl;
 import com.google.code.siren4j.error.Siren4JBuilderValidationException;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActionBuilder extends BaseBuilder<Action> {
 
@@ -43,6 +42,7 @@ public class ActionBuilder extends BaseBuilder<Action> {
     private ActionBuilder() {
 
     }
+
     /**
      * Retrieve a new instance of an <code>ActionBuilder</code>.
      * @return new instance, never <code>null</code>.
@@ -69,7 +69,7 @@ public class ActionBuilder extends BaseBuilder<Action> {
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public ActionBuilder setComponentClass(String... componentClass) {
-        addStep("setComponentClass", new Object[] { componentClass }, new Class<?>[] {String[].class});
+        addStep("setComponentClass", new Object[]{componentClass}, new Class<?>[]{String[].class});
         return this;
     }
 
@@ -79,38 +79,38 @@ public class ActionBuilder extends BaseBuilder<Action> {
      * @return
      */
     public ActionBuilder setName(String name) {
-        if(StringUtils.isBlank(name)) {
+        if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("name cannot be null or empty.");
         }
-        addStep("setName", new Object[] { name });
+        addStep("setName", new Object[]{name});
         return this;
     }
 
     public ActionBuilder setMethod(Method method) {
-        addStep("setMethod", new Object[] { method }, new Class<?>[] {Method.class});
+        addStep("setMethod", new Object[]{method}, new Class<?>[]{Method.class});
         return this;
     }
 
     public ActionBuilder setHref(String href) {
-        if(StringUtils.isBlank(href)) {
+        if (StringUtils.isBlank(href)) {
             throw new IllegalArgumentException("href cannot be null or empty.");
         }
-        addStep("setHref", new Object[] { href });
+        addStep("setHref", new Object[]{href});
         return this;
     }
 
     public ActionBuilder setTitle(String title) {
-        addStep("setTitle", new Object[] { title }, new Class<?>[] {String.class});
+        addStep("setTitle", new Object[]{title}, new Class<?>[]{String.class});
         return this;
     }
 
     public ActionBuilder setType(String type) {
-        addStep("setType", new Object[] { type }, new Class<?>[] {String.class});
+        addStep("setType", new Object[]{type}, new Class<?>[]{String.class});
         return this;
     }
 
     public ActionBuilder addField(Field field) {
-        addStep("_addField", new Object[] { field }, true);
+        addStep("_addField", new Object[]{field}, true);
         return this;
     }
 

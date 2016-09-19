@@ -1,16 +1,16 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- * 
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
  * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
  * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit
  * persons to whom the Software is furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
  * Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
  * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
  * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
@@ -18,14 +18,14 @@
  *********************************************************************************************/
 package com.google.code.siren4j.resource;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-
 import com.google.code.siren4j.annotations.Siren4JEntity;
 import com.google.code.siren4j.annotations.Siren4JInclude;
 import com.google.code.siren4j.annotations.Siren4JInclude.Include;
 import com.google.code.siren4j.annotations.Siren4JSubEntity;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Class representing a collection of resources.
@@ -56,7 +56,7 @@ public class CollectionResource<T> extends BaseResource implements Collection<T>
 
     public boolean isEmpty() {
         return getCollection().isEmpty();
-    }    
+    }
 
     public long getOffset() {
         return offset;

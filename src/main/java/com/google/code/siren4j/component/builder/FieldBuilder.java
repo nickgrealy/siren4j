@@ -1,18 +1,18 @@
 /*******************************************************************************************
  * The MIT License (MIT)
- * 
+ * <p>
  * Copyright (c) 2013 Erik R Serating
- * 
+ * <p>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ * <p>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -28,7 +28,7 @@ import com.google.code.siren4j.component.impl.FieldImpl;
 import com.google.code.siren4j.error.Siren4JBuilderValidationException;
 import com.google.code.siren4j.meta.FieldOption;
 import com.google.code.siren4j.meta.FieldType;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 
@@ -40,6 +40,7 @@ public class FieldBuilder extends BaseBuilder<Field> {
 
     /**
      * Retrieve a new instance of an <code>FieldBuilder</code>.
+     *
      * @return new instance, never <code>null</code>.
      */
     public static FieldBuilder newInstance() {
@@ -49,8 +50,9 @@ public class FieldBuilder extends BaseBuilder<Field> {
     /**
      * Retrieve a new instance of an <code>FieldBuilder</code>. Added to allow this method to be used with
      * static method importing.
-     * @since 1.1.0
+     *
      * @return new instance, never <code>null</code>.
+     * @since 1.1.0
      */
     public static FieldBuilder createFieldBuilder() {
         return newInstance();
@@ -60,30 +62,31 @@ public class FieldBuilder extends BaseBuilder<Field> {
      * Set the component class of the entity to be built. This method can be called many times
      * but only the value of the last call is used in the built entity. This is an optional property as specified
      * by the Siren specification.
+     *
      * @param componentClass may be <code>null</code> or empty.
      * @return <code>this</code> builder, never <code>null</code>.
      */
     public FieldBuilder setComponentClass(String... componentClass) {
-        addStep("setComponentClass", new Object[] { componentClass }, new Class<?>[] {String[].class});
+        addStep("setComponentClass", new Object[]{componentClass}, new Class<?>[]{String[].class});
         return this;
     }
 
     public FieldBuilder setName(String name) {
-        if(StringUtils.isBlank(name)) {
+        if (StringUtils.isBlank(name)) {
             throw new IllegalArgumentException("name cannot be null or empty.");
         }
-        addStep("setName", new Object[] { name });
+        addStep("setName", new Object[]{name});
         return this;
     }
 
     public FieldBuilder setType(FieldType type) {
-        addStep("setType", new Object[] { type }, new Class<?>[] {FieldType.class});
+        addStep("setType", new Object[]{type}, new Class<?>[]{FieldType.class});
         return this;
     }
-    
+
 
     public FieldBuilder addOption(FieldOption option) {
-        addStep("addOption", new Object[] { option }, new Class<?>[] {FieldOption.class});
+        addStep("addOption", new Object[]{option}, new Class<?>[]{FieldOption.class});
         return this;
     }
 
@@ -96,62 +99,62 @@ public class FieldBuilder extends BaseBuilder<Field> {
     }
 
     public FieldBuilder setOptionsURL(String url) {
-        addStep("setOptionsURL", new Object[] { url }, new Class<?>[] {String.class});
+        addStep("setOptionsURL", new Object[]{url}, new Class<?>[]{String.class});
         return this;
     }
-	
+
     public FieldBuilder setTitle(String title) {
-        addStep("setTitle", new Object[] { title }, new Class<?>[] {String.class});
+        addStep("setTitle", new Object[]{title}, new Class<?>[]{String.class});
         return this;
     }
 
     public FieldBuilder setValue(String value) {
-        addStep("setValue", new Object[] { value }, new Class<?>[] {String.class});
+        addStep("setValue", new Object[]{value}, new Class<?>[]{String.class});
         return this;
     }
 
     public FieldBuilder setPattern(String pattern) {
-        addStep("setPattern", new Object[] { pattern }, new Class<?>[] {String.class});
+        addStep("setPattern", new Object[]{pattern}, new Class<?>[]{String.class});
         return this;
     }
 
     public FieldBuilder setRequired(Boolean required) {
-        addStep("setRequired", new Object[] { required }, new Class[] { Boolean.class });
+        addStep("setRequired", new Object[]{required}, new Class[]{Boolean.class});
         return this;
     }
 
     public FieldBuilder setMax(Double max) {
-        addStep("setMax", new Object[] { max }, new Class[] { Double.class });
+        addStep("setMax", new Object[]{max}, new Class[]{Double.class});
         return this;
     }
 
     public FieldBuilder setMin(Double min) {
-        addStep("setMin", new Object[] { min }, new Class[] { Double.class });
+        addStep("setMin", new Object[]{min}, new Class[]{Double.class});
         return this;
     }
 
     public FieldBuilder setMaxLength(Long maxLength) {
-        addStep("setMaxLength", new Object[] { maxLength }, new Class[] { Long.class });
+        addStep("setMaxLength", new Object[]{maxLength}, new Class[]{Long.class});
         return this;
     }
 
     public FieldBuilder setStep(String step) {
-        addStep("setStep", new Object[] { step }, new Class[] { String.class });
+        addStep("setStep", new Object[]{step}, new Class[]{String.class});
         return this;
     }
-    
+
     public FieldBuilder setPlaceholder(String placeholder) {
-        addStep("setPlaceholder", new Object[] { placeholder }, new Class<?>[] {String.class});
+        addStep("setPlaceholder", new Object[]{placeholder}, new Class<?>[]{String.class});
         return this;
     }
 
     public FieldBuilder setMultiple(Boolean multiple) {
-        addStep("setMultiple", new Object[] { multiple }, new Class<?>[] {Boolean.class});
+        addStep("setMultiple", new Object[]{multiple}, new Class<?>[]{Boolean.class});
         return this;
     }
 
     public FieldBuilder setMetaData(Map<String, String> metaData) {
-        addStep("setMetaData", new Object[] {metaData}, new Class[] {Map.class});
+        addStep("setMetaData", new Object[]{metaData}, new Class[]{Map.class});
         return this;
     }
 
